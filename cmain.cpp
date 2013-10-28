@@ -18,7 +18,7 @@ int main(int args,char*argv[]){
 		if(strcmp(argv[1],"HELP/0")){
 			OutHelp();
 			return 5;}
-		cout<<"MAC required!"<<endl;
+		cout<<"IP required!"<<endl;
 		return 2;}
 
 	l_mac=inet_addr(argv[1]);
@@ -38,8 +38,8 @@ int main(int args,char*argv[]){
 				return 4;}}
 	}
 
-	cout<<"MAC: "<<inet_ntoa(sin_mac)<<endl
-	<<"Outer IP: "<<inet_ntoa(sin_outIP)<<endl;
+	cout<<"MAC: "<<argv[1]<<endl
+	<<"Outer IP: "<<argv[2]<<endl;
 	cout<<"-----------------------------------------"<<endl
 		<<"Inner IPs:"<<endl;
 
@@ -49,6 +49,4 @@ int main(int args,char*argv[]){
 			sin_inIP.s_addr=l;
 			cout<<inet_ntoa(sin_inIP)<<endl;}}
 	cout<<(noFound?"No Addresses found!":"")<<endl;
-	system("pause");
 	return 0;}
-	

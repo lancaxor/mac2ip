@@ -34,7 +34,7 @@ int* SplitConvertIp(char*ip){
 }
 
 void OutHelp(){
-	cout<<"Ussage: mac2ip [subnet IP] [MAC]"<<endl
+	cout<<"Ussage: mac2ip [MAC] [Subnet IP]"<<endl
 		<<"Params format: xxx.xxx.xxx.xxx"<<endl
 		<<"xxx -- number from 0 to 255"<<endl
 		<<"join!"<<endl;}
