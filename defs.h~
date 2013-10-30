@@ -18,8 +18,13 @@ int noFound=1;
 
 int firstParamLen=17;
 
-void dbg(long ch){
+void dbg(char*ch){
+	printf(">>> >%s<\n",ch);
+}
+
+int dbg(long ch){
 	printf(">>> >%d<\n",ch);
+	return 0;
 }
 
 
