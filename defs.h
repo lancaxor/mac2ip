@@ -18,10 +18,8 @@ int noFound=1;
 
 int firstParamLen=17;
 
-void dbg(long ch){
-	printf(">>> >%d<\n",ch);
-}
+void dbg(long ch);
 
+void OutHelp();
 
-void OutHelp(){
-	printf("Ussage: mac2ip [MAC] [Subnet IP]\nParams format: xx-xx-xx-xx-xx-xx\nxx -- number from 0 to 255\njoin!\n");}
+//int hex2dec(char*dec);

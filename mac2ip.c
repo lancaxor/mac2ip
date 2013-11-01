@@ -39,3 +39,10 @@ int main(int args,char*argv[]){
 			printf("%s\n",inet_ntoa(sin_inIP));}}
 	printf("%s\n",noFound==1?"No Addresses found!":"");
 	return 0;}
+	
+void OutHelp(){
+	printf("Ussage: mac2ip [MAC] [Subnet IP]\nParams format: xx-xx-xx-xx-xx-xx\nxx -- number from 0 to 255\njoin!\n");}
+
+void dbg(long ch){
+	printf(">> >%d<\n", ch);
+}
