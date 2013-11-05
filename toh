@@ -1,0 +1,2 @@
+install:
+	cp * ~/mac2ipc
