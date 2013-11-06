@@ -1,2 +1,2 @@
 install:
-	gcc -std=c11 mac2ip.c -o mac2ip
+	gcc -std=c99 mac2ipc.c -o mac2ipc
