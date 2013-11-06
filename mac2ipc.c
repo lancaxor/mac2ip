@@ -12,6 +12,7 @@
 #include "defs.h"
 
 int main(void) {
+	freopen("in.txt","r",stdin);
 	char *mac=(char*)malloc(100*sizeof(char));
 	char *outip=(char*)malloc(100*sizeof(char));
 	long lmac=0,loutip=0;
@@ -71,9 +72,23 @@ char* removeSeparators(char*param){
 	
 }
 
-long atohex(const char*param){
+long atohex(const char*param){					//xxxxyyyyyyyy
 	long res=0;
-	res=strtol(param,NULL,16);
+	long long first4=0x0L,last8=0x0L;
+	printf("input: %s\n",param);
+	char*last8bytes=(char*)malloc(8*sizeof(char));		//yyyyyyyy
+	for(int i=0;i<8;i++)
+		*(last8bytes+7-i)=*(param+11-i);
+	sscanf(last8bytes,"%8x",&last8);
+	printf("last8bytes: %s; last8: %x\n",last8bytes,last8);
+	char*first4bytes=(char*)malloc(4*sizeof(char));		//xxxx
+	for(int i=0;i<4;i++)
+		*(first4bytes+i)=*(param+i);
+	sscanf(first4bytes,"%8x",&first4);
+	printf("first4bytes: %s; first4: %x\n",first4bytes,first4);
+	first4*=0x1000000L;					//xxxx00000000
+	printf("After out: %x\n",first4);
+	res=(first4+last8);					//xxxxyyyyyyyy
 	return res;
 }
 
