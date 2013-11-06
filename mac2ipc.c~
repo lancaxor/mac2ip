@@ -20,10 +20,11 @@ int main(void) {
 	//puts("Enter outer IP");
 	//scanf("%s",&outip);
 
-	printdbg("Before splitting...");
+	printdbg("Unsplitting...");
+	
+	printf("Afret splitting: %s",removeSeparators(mac));
 
-	long*__l_addr=
-			splitIP(mac,'m');
+/*	long*__l_addr=splitIP(mac,'m');
 
 	printdbg("Splitting...");
 
@@ -37,7 +38,7 @@ int main(void) {
 	for(int i=0;i<macoksize;i++){
 		//printf("%x",__l_addr[i]);
 	}
-
+*/
 	free(outip);
 	free(mac);
 	return EXIT_SUCCESS;
@@ -112,7 +113,35 @@ long* splitIP(const char*arg,const char attrib){
 	return res;
 }
 
+char* removeSeparators(char*param){
+	int oksize=0;
+	int oknum=0;
+	int length=0;
+	int hexindex=0;
+	char*result;
+	
+	if(param[2]=='-'||param[2]==':'||param[2]=='.'){
+		oksize=2;
+		length=17;}
+	else if(param[4]=='-'||param[4]==':'||param[4]=='.'){
+		oksize=4;
+		length=14;}
+	else
+		return  "ERROR_WHILE_COUNTING_OKTET_SIZE";
+	
+	result=(char*)malloc(12*sizeof(char));			//12 symbols in MAC48 (except separators)
+	
+	for(int i=0;i<length-1;i++){
+		if((i+1)%(oksize+1)!=0){
+		*(result+hexindex)=*(param+i);
+		++hexindex;
+		}
+	}
+	*(result+11)=*(param+length-1);
+	return result;
+	
+}
+
 void printdbg(char*str){
 	printf("\n\t>>> %s\n",str);
 }
-;

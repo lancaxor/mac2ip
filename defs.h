@@ -18,18 +18,26 @@
 #define SPLIT_BAD_OKSIZE	1024
 #define SPLIT_BAD_ATTRIB	1025
 
+int ipoksize=0;
+int macoksize=0;
+
+
 /**
  *	second parameter -- attribute.
  *	attrib='m' => splitting MAC
  *	arrtib='i' => splitting IP
  *	attrib=[other] => error & exit
  */
-int ipoksize=0;
-int macoksize=0;
-
 long* splitIP(const char*,const char);
 
+/**
+* pow(int number, int power)
+* return number in power
+*/
+
 int powr(int,int);
+
+char* removeSeparators(char*);
 
 void printdbg(char*);
 
