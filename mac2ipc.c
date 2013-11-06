@@ -21,24 +21,14 @@ int main(void) {
 	//scanf("%s",&outip);
 
 	printdbg("Unsplitting...");
-	
-	printf("Afret splitting: %s",removeSeparators(mac));
-
-/*	long*__l_addr=splitIP(mac,'m');
-
-	printdbg("Splitting...");
-
-	if(*__l_addr==SPLIT_BAD_OKSIZE)
-		printf("SPLIT_BAD_OKSIZE!");
-	else if((*__l_addr)==SPLIT_BAD_ATTRIB)
-		printf("SPLIT_BAD_ATTRIB!");
-	else
-		printf("Nothing of this...");
-
-	for(int i=0;i<macoksize;i++){
-		//printf("%x",__l_addr[i]);
-	}
-*/
+	char*unsplitted=removeSeparators(mac);
+	if(strcmp(unsplitted,"ERROR_WHILE_COUNTING_OKTET_SIZE")!=0)
+		printf("Afret splitting: %s\n",unsplitted);
+	else{
+		printdbg("bad MAC format!");
+		return -1;}
+	lmac=atohex(unsplitted);
+	printf("Result: %12x\n",lmac);
 	free(outip);
 	free(mac);
 	return EXIT_SUCCESS;
@@ -50,67 +40,6 @@ int powr(const int arg,int power){
 		result*=arg;
 	}
 	return result;
-}
-
-long* splitIP(const char*arg,const char attrib){
-	printdbg("Start splitting...");
-
-
-	int oksize=3;
-	long *res;
-
-	/*
-	 * finding oktet size
-	 */
-	if(arg[2]=='-'||arg[2]==':'||arg[2]=='.')
-		oksize=2;
-	else if(arg[4]=='-'||arg[4]==':'||arg[4]=='.')
-		oksize=4;
-	else{
-		res=(long*)malloc(sizeof(long));
-		*res=SPLIT_BAD_OKSIZE;
-		return  res;
-	}
-
-
-	/*
-	 * finding current address (arg) type (MAC or IP)
-	 */
-	if(attrib=='m')
-		macoksize=oksize;
-	else if (attrib=='i')
-		ipoksize=oksize;
-	else{
-			res=(long*)malloc(sizeof(long));
-			*res=SPLIT_BAD_ATTRIB;
-			return  res;
-		}
-
-	printdbg("Allocating...");
-
-	res=(long*)malloc(oksize*sizeof(long));
-
-	int oknum=12/oksize;
-
-	printf("oksize: %d\toknum:%d\n",oksize,oknum);
-
-	for(int i=0;i<oknum;i++){			//for every oktet
-		res[i]=0;
-		for(int j=0;j<oksize;j++){		//for every symbol in oktet
-			const int p=(oksize-j-1);
-			int dec=powr(10,p);
-
-			printdbg(arg[j]);
-
-			long l=(long) (intptr_t) atoi(&arg[j]);
-			*(res+i)=l;
-			res[i]*=dec;
-		}
-	}
-	free(res);
-	printdbg("end splitting");
-
-	return res;
 }
 
 char* removeSeparators(char*param){
@@ -140,6 +69,12 @@ char* removeSeparators(char*param){
 	*(result+11)=*(param+length-1);
 	return result;
 	
+}
+
+long atohex(const char*param){
+	long res=0;
+	res=strtol(param,NULL,16);
+	return res;
 }
 
 void printdbg(char*str){

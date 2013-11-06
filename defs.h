@@ -21,15 +21,6 @@
 int ipoksize=0;
 int macoksize=0;
 
-
-/**
- *	second parameter -- attribute.
- *	attrib='m' => splitting MAC
- *	arrtib='i' => splitting IP
- *	attrib=[other] => error & exit
- */
-long* splitIP(const char*,const char);
-
 /**
 * pow(int number, int power)
 * return number in power
@@ -38,6 +29,8 @@ long* splitIP(const char*,const char);
 int powr(int,int);
 
 char* removeSeparators(char*);
+
+long atohex(const char*);
 
 void printdbg(char*);
 
