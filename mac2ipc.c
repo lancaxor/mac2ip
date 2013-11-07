@@ -16,20 +16,45 @@ int main(void) {
 	char *mac=(char*)malloc(100*sizeof(char));
 	char *outip=(char*)malloc(100*sizeof(char));
 	char*unsMac;
+	char*unsIP;
+	int resNum=0;
 	intmax_t lmac=0,loutip=0;
 
-	puts("Enter MAC");
-	scanf("%s",mac);
+	puts("Enter MAC & outer IP");
+	scanf("%s %s",mac, outip);
 
-	unsMac=removeSeparators(mac);
-	if(strcmp(unsMac,"ERROR_WHILE_COUNTING_OKTET_SIZE")!=0)
-		printf("After splitting: %s\n",unsMac);
-	else{
+
+	unsMac=removeSeparators(mac,'m');
+	unsIP=removeSeparators(outip,'i');
+	if(strcmp(unsMac,"RS_BAD_MAC48_FORMAT")==0){
 		printdbg("bad MAC format!");
+		return -2;
+	}
+	else if(strcmp(unsIP,"RS_BAD_MAC48_FORMAT")==0){
+		printdbg("bad IP format!");
 		return -1;}
+	else if((strcmp(unsIP,"RS_BAD_PARAMETER_TYPE")==0)||(strcmp(unsIP,"RS_BAD_PARAMETER_TYPE")==0)){
+		printdbg("Bad input string format!");
+		return -3;}
 
 	lmac=atohex(unsMac);
+	loutip=atohex(unsIP);
 
+	resNum=MAX_MAC48-lmac+1;
+	loutip=lmac&loutip;
+
+	for(long i=0x0;i<resNum;i++){
+		long linip=loutip+i+1;
+		int holost=100500;
+		//here will be output...
+		//printf("%s\n",mac48toa(temp));
+	}
+
+	if(resNum==0)	printf ("no addresses found!\n");
+	else	printf("Founded %d addresses...\n",resNum);
+
+	free(unsIP);
+	free(unsMac);
 	free(outip);
 	free(mac);
 	return EXIT_SUCCESS;
@@ -43,7 +68,7 @@ int powr(const int arg,int power){
 	return result;
 }
 
-char* removeSeparators(char*param){
+char* removeSeparators(char*param,char type){
 	int oksize=0;
 	int oknum=0;
 	int length=0;
@@ -57,7 +82,14 @@ char* removeSeparators(char*param){
 		oksize=4;
 		length=14;}
 	else
-		return  "ERROR_WHILE_COUNTING_OKTET_SIZE";
+		return  "RS_BAD_MAC48_FORMAT";
+
+	if(type=='m')
+		macoksize=oksize;
+	else if(type=='i')
+		ipoksize=oksize;
+	else
+		return "RS_BAD_PARAMETER_TYPE";
 	
 	result=(char*)malloc(12*sizeof(char));			//12 symbols in MAC48 (except separators)
 	
@@ -69,7 +101,6 @@ char* removeSeparators(char*param){
 	}
 	*(result+11)=*(param+length-1);
 	return result;
-	
 }
 
 intmax_t atohex(const char*param){					//xxxxyyyyyyyy
@@ -88,9 +119,21 @@ intmax_t atohex(const char*param){					//xxxxyyyyyyyy
 	printf("first4bytes: %s; first4: %x\n",first4bytes,first4);
 	first4*=0x100000000L;					//xxxx00000000
 	res=(first4+last8);					//xxxxyyyyyyyy
+
+	free(first4bytes);
+	free(last8bytes);
 	return res;
 }
 
 void printdbg(char*str){
 	printf("\n\t>>> %s\n",str);
+}
+
+void printHelp(){
+	printf("Ussage: ./mac2ipc XX-XX-XX-XX-XX-XX YY-YY-YY-YY-YY-YY\n or XXXX.XXXX.XXXX ./mac2ipc YYYY.YYYY.YYYY, \n where X and Y - hex num from 0 to F.\n Instead of '-' you may type '.' or ':'.\n Warning: if in some oktet is 1 number among 2, write 0 before it: XX.0X.XX");
+}
+
+char*mac48toa(intmax_t mac){
+	char*result;
+	return result;
 }

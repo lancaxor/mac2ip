@@ -15,6 +15,7 @@
 
 #ifndef DEFS_H_
 #define DEFS_H_
+#define MAX_MAC48 281474976710655
 
 #define SPLIT_BAD_OKSIZE	1024
 #define SPLIT_BAD_ATTRIB	1025
@@ -29,11 +30,15 @@ int macoksize=0;
 
 int powr(int,int);
 
-char* removeSeparators(char*);
+char* removeSeparators(char*,char);
 
 intmax_t atohex(const char*);
 
 void printdbg(char*);
+
+void printHelp();
+
+char*mac48toa(intmax_t);
 
 #endif /* DEFS_H_ */
 
