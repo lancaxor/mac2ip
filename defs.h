@@ -31,7 +31,7 @@ int powr(int,int);
 
 char* removeSeparators(char*);
 
-long atohex(const char*);
+intmax_t atohex(const char*);
 
 void printdbg(char*);
 

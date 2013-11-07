@@ -1,5 +1,3 @@
 AA.FF.B1.3D.1B.C0
-<<<<<<< HEAD
 
-=======
->>>>>>> e6a2ae56f1ef8f00d262994e0598eeeaa1da042e
+

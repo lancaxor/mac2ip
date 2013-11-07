@@ -12,32 +12,24 @@
 #include "defs.h"
 
 int main(void) {
-<<<<<<< HEAD
 	//freopen("in.txt","r",stdin);
-=======
-	freopen("in.txt","r",stdin);
->>>>>>> e6a2ae56f1ef8f00d262994e0598eeeaa1da042e
 	char *mac=(char*)malloc(100*sizeof(char));
 	char *outip=(char*)malloc(100*sizeof(char));
-	long lmac=0,loutip=0;
+	char*unsMac;
+	intmax_t lmac=0,loutip=0;
+
 	puts("Enter MAC");
 	scanf("%s",mac);
-<<<<<<< HEAD
-	puts(mac);
-=======
->>>>>>> e6a2ae56f1ef8f00d262994e0598eeeaa1da042e
-	//puts("Enter outer IP");
-	//scanf("%s",&outip);
 
-	printdbg("Unsplitting...");
-	char*unsplitted=removeSeparators(mac);
-	if(strcmp(unsplitted,"ERROR_WHILE_COUNTING_OKTET_SIZE")!=0)
-		printf("Afret splitting: %s\n",unsplitted);
+	unsMac=removeSeparators(mac);
+	if(strcmp(unsMac,"ERROR_WHILE_COUNTING_OKTET_SIZE")!=0)
+		printf("After splitting: %s\n",unsMac);
 	else{
 		printdbg("bad MAC format!");
 		return -1;}
-	lmac=atohex(unsplitted);
-	printf("Result: %12x\n",lmac);
+
+	lmac=atohex(unsMac);
+
 	free(outip);
 	free(mac);
 	return EXIT_SUCCESS;
@@ -80,9 +72,9 @@ char* removeSeparators(char*param){
 	
 }
 
-long atohex(const char*param){					//xxxxyyyyyyyy
-	long res=0;
-	long long first4=0x0L,last8=0x0L;
+intmax_t atohex(const char*param){					//xxxxyyyyyyyy
+	intmax_t res=0;
+	intmax_t first4=0x0L,last8=0x0L;
 	printf("input: %s\n",param);
 	char*last8bytes=(char*)malloc(8*sizeof(char));		//yyyyyyyy
 	for(int i=0;i<8;i++)
@@ -94,12 +86,7 @@ long atohex(const char*param){					//xxxxyyyyyyyy
 		*(first4bytes+i)=*(param+i);
 	sscanf(first4bytes,"%8x",&first4);
 	printf("first4bytes: %s; first4: %x\n",first4bytes,first4);
-	first4*=0x1000000L;					//xxxx00000000
-<<<<<<< HEAD
-	printf("After out: %13x\n",*(&first4));
-=======
-	printf("After out: %x\n",first4);
->>>>>>> e6a2ae56f1ef8f00d262994e0598eeeaa1da042e
+	first4*=0x100000000L;					//xxxx00000000
 	res=(first4+last8);					//xxxxyyyyyyyy
 	return res;
 }
