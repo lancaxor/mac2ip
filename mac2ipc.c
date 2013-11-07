@@ -12,13 +12,20 @@
 #include "defs.h"
 
 int main(void) {
+<<<<<<< HEAD
 	//freopen("in.txt","r",stdin);
+=======
+	freopen("in.txt","r",stdin);
+>>>>>>> e6a2ae56f1ef8f00d262994e0598eeeaa1da042e
 	char *mac=(char*)malloc(100*sizeof(char));
 	char *outip=(char*)malloc(100*sizeof(char));
 	long lmac=0,loutip=0;
 	puts("Enter MAC");
 	scanf("%s",mac);
+<<<<<<< HEAD
 	puts(mac);
+=======
+>>>>>>> e6a2ae56f1ef8f00d262994e0598eeeaa1da042e
 	//puts("Enter outer IP");
 	//scanf("%s",&outip);
 
@@ -88,7 +95,11 @@ long atohex(const char*param){					//xxxxyyyyyyyy
 	sscanf(first4bytes,"%8x",&first4);
 	printf("first4bytes: %s; first4: %x\n",first4bytes,first4);
 	first4*=0x1000000L;					//xxxx00000000
+<<<<<<< HEAD
 	printf("After out: %13x\n",*(&first4));
+=======
+	printf("After out: %x\n",first4);
+>>>>>>> e6a2ae56f1ef8f00d262994e0598eeeaa1da042e
 	res=(first4+last8);					//xxxxyyyyyyyy
 	return res;
 }
