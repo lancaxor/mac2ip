@@ -11,10 +11,7 @@
 #include <unistd.h>
 #include <math.h>
 #include <stdint.h>
-<<<<<<< HEAD
 #include <string.h>
-=======
->>>>>>> e6a2ae56f1ef8f00d262994e0598eeeaa1da042e
 
 #ifndef DEFS_H_
 #define DEFS_H_
