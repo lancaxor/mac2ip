@@ -38,7 +38,7 @@ void printdbg(char*);
 
 void printHelp();
 
-char*mac48toa(intmax_t);
+char*mac48toa(intmax_t,char);
 
 #endif /* DEFS_H_ */
 

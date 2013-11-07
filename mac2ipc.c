@@ -133,7 +133,25 @@ void printHelp(){
 	printf("Ussage: ./mac2ipc XX-XX-XX-XX-XX-XX YY-YY-YY-YY-YY-YY\n or XXXX.XXXX.XXXX ./mac2ipc YYYY.YYYY.YYYY, \n where X and Y - hex num from 0 to F.\n Instead of '-' you may type '.' or ':'.\n Warning: if in some oktet is 1 number among 2, write 0 before it: XX.0X.XX");
 }
 
-char*mac48toa(intmax_t mac){
+char*mac48toa(intmax_t mac, char type){
 	char*result;
+	char*buf=(char*)malloc(12*sizeof(char));
+	int len=0;
+	int oksize=0;
+	if(type=='m')
+		oksize=macoksize;
+	else if (type=='i')
+		oksize=ipoksize;
+	else
+		return "MTOA_BAD_TYPE";
+
+	len=(oksize==2)?17:14;
+	result=(char*)malloc(len*sizeof(char));
+
+	/*for(int i=0;i<len;i++){
+
+	}*/
+	free(buf);
+	free(result);
 	return result;
 }
