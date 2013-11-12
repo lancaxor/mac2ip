@@ -8,17 +8,25 @@
  ============================================================================
  */
 
-
+#include <stdio.h>
+#include <stdlib.h>
+#include <ctype.h>
+#include <unistd.h>
+#include <math.h>
+#include <stdint.h>
+#include <string.h>
 #include "defs.h"
 
+int ipoksize=0;
+int macoksize=0;
+
 int main(void) {
-	//freopen("in.txt","r",stdin);
 	char *mac=(char*)malloc(100*sizeof(char));
 	char *outip=(char*)malloc(100*sizeof(char));
 	char*unsMac;
 	char*unsIP;
 	int resNum=0;
-	intmax_t lmac=0,loutip=0;
+	mac48_t lmac=0,loutip=0;
 
 	puts("Enter MAC & outer IP");
 	scanf("%s %s",mac, outip);
@@ -103,9 +111,9 @@ char* removeSeparators(char*param,char type){
 	return result;
 }
 
-intmax_t atohex(const char*param){					//xxxxyyyyyyyy
-	intmax_t res=0;
-	intmax_t first4=0x0L,last8=0x0L;
+mac48_t atohex(const char*param){					//xxxxyyyyyyyy
+	mac48_t res=0;
+	mac48_t first4=0x0L,last8=0x0L;
 	printf("input: %s\n",param);
 	char*last8bytes=(char*)malloc(8*sizeof(char));		//yyyyyyyy
 	for(int i=0;i<8;i++)
@@ -130,10 +138,10 @@ void printdbg(char*str){
 }
 
 void printHelp(){
-	printf("Ussage: ./mac2ipc XX-XX-XX-XX-XX-XX YY-YY-YY-YY-YY-YY\n or XXXX.XXXX.XXXX ./mac2ipc YYYY.YYYY.YYYY, \n where X and Y - hex num from 0 to F.\n Instead of '-' you may type '.' or ':'.\n Warning: if in some oktet is 1 number among 2, write 0 before it: XX.0X.XX");
+	printf("Usage: ./mac2ipc XX-XX-XX-XX-XX-XX YY-YY-YY-YY-YY-YY\n or XXXX.XXXX.XXXX ./mac2ipc YYYY.YYYY.YYYY, \n where X and Y - hex num from 0 to F.\n Instead of '-' you may type '.' or ':'.\n Warning: if in some oktet is 1 number among 2, write 0 before it: XX.0X.XX");
 }
 
-char*mac48toa(intmax_t mac, char type){
+char*mac48toa(mac48_t mac, char type){
 	char*result;
 	char*buf=(char*)malloc(12*sizeof(char));
 	int len=0;
