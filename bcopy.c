@@ -31,8 +31,25 @@ int main(int args,char**argv) {
 				printf("bcopy: Invalid option \"%s\"\n", getParam(*(argv+inNum)));
 		}
 		break;
-
-	}
+	case 2:
+		if(isOption(*(argv+1))==0 &&isOption(*(argv+2))==0){
+			printf("2 parameters. No one options, so -- this is copy from %s to %s\n",*(argv+1),*(argv+2));
+			FILE*reader=fopen(*(argv+1),"r"),
+					*writer=fopen(*(argv+2),"w");
+			while(!feof(reader)){
+				int _char=fgetc(reader);
+				if(_char==EOF)
+					break;
+				fputc(_char,writer);
+			}
+			fclose(writer);
+			fclose(reader);
+		}
+		else
+			puts("Some errors. Maybe u entered an option???");
+		break;
+	default:
+		puts("Default msg...");}
 	return EXIT_SUCCESS;
 }
 
