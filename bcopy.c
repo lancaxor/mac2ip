@@ -16,14 +16,14 @@
 int main(int args,char**argv) {
 	int inNum=args-1;
 	switch(inNum){
-	case 0:
+	case 0:	//0
 		puts("Usage: bcopy [-m remotehost [-p remoteport]]\n\t\t[-r] src [dest]");
 		break;
 	case 1:
-		if(isOption(*(argv+inNum))==0)
-			puts("Invalid params.");
-		else{
-			if(strcmp(getParam(*(argv+inNum)),"h")==0)
+		if(isOption(*(argv+inNum))==0)	//2
+			printf("Invalid parameter: '%s'\n",*(argv+1));
+		else{		//1
+			if(strcmp(getParam(*(argv+inNum)),"h")==0||strcmp(getParam(*(argv+inNum)),"-help")==0)
 				puts("Usage: bcopy [-m remotehost [-p remoteport]]\n\t\t[-r] src [dest]\n");
 			else if(strcmp(getParam(*(argv+inNum)),"v")==0)
 				puts((char*)version);
@@ -32,24 +32,34 @@ int main(int args,char**argv) {
 		}
 		break;
 	case 2:
-		if(isOption(*(argv+1))==0 &&isOption(*(argv+2))==0){
-			printf("2 parameters. No one options, so -- this is copy from %s to %s\n",*(argv+1),*(argv+2));
-			FILE*reader=fopen(*(argv+1),"r"),
-					*writer=fopen(*(argv+2),"w");
-			while(!feof(reader)){
-				int _char=fgetc(reader);
-				if(_char==EOF)
-					break;
-				fputc(_char,writer);
+		if(isOption(*(argv+1))==0 &&isOption(*(argv+2))==0){	//3
+			if(strcmp(*(argv+1),*(argv+2))==0){
+				printf("source cannot equals to destination!\n");
+				return -4;
 			}
-			fclose(writer);
-			fclose(reader);
+			FILE*reader,*writer;
+			if((reader=fopen(*(argv+1),"r"))!=NULL && (writer=fopen(*(argv+2),"w"))!=NULL){
+				while(!feof(reader)){
+					int _char=fgetc(reader);
+					if(_char==EOF)
+						break;
+					fputc(_char,writer);
+				}
+				fclose(writer);
+				fclose(reader);}
+			else
+			{
+				printf("Error opening file!\n");
+				return -3;
+			}
 		}
 		else
-			puts("Some errors. Maybe u entered an option???");
+			printf("Invalid parameters: '%s %s'\n",*(argv+1),*(argv+2));
 		break;
 	default:
-		puts("Default msg...");}
+		puts("Default msg...");
+		break;
+	}
 	return EXIT_SUCCESS;
 }
 

@@ -25,4 +25,12 @@ int isOption(const char*);
  */
 char*getParam(const char*);
 
+/**
+ *	connect to host with address equals to first parameter
+ *	and receive file and store on local host with filename
+ *	equals to second parameter.
+ */
+int receive(const char*,const char*);
+
+
 #endif /* DEFS_H_ */
