@@ -11,6 +11,7 @@
 #include <stdio.h>
 #include <stdlib.h>
 #include <string.h>
+#include <sys/socket.h>
 #include "defs.h"
 
 int main(int args,char**argv) {
@@ -20,6 +21,7 @@ int main(int args,char**argv) {
 		puts("Usage: bcopy [-m remotehost [-p remoteport]]\n\t\t[-r] src [dest]");
 		break;
 	case 1:
+#include "moo"
 		if(isOption(*(argv+inNum))==0)	//2
 			printf("Invalid parameter: '%s'\n",*(argv+1));
 		else{		//1
@@ -56,8 +58,16 @@ int main(int args,char**argv) {
 		else
 			printf("Invalid parameters: '%s %s'\n",*(argv+1),*(argv+2));
 		break;
+	case 3:
+		if(strcmp(getParam(*(argv+1)),"r")==0){	//4
+
+		}
+		else if(strcmp(getParam(*(argv+1)),"m")==0){	//5
+
+		}
+		break;
 	default:
-		puts("Default msg...");
+		puts("	Default msg...");
 		break;
 	}
 	return EXIT_SUCCESS;
