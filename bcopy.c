@@ -39,6 +39,11 @@ int main(int args,char**argv) {
 				printf("source cannot equals to destination!\n");
 				return -4;
 			}
+			if(fopen(*(argv+2),"r")!=NULL){
+				printf("Cannot copy to %s: destination file exist. "
+						"Use option '-r' for replacing.\n",*(argv+2));
+				return -5;
+			}
 			FILE*reader,*writer;
 			if((reader=fopen(*(argv+1),"r"))!=NULL && (writer=fopen(*(argv+2),"w"))!=NULL){
 				while(!feof(reader)){
@@ -60,10 +65,31 @@ int main(int args,char**argv) {
 		break;
 	case 3:
 		if(strcmp(getParam(*(argv+1)),"r")==0){	//4
-
+			if(strcmp(*(argv+2),*(argv+3))==0){
+							printf("source cannot equals to destination!\n");
+							return -4;}
+			FILE*reader,*writer;
+			if((reader=fopen(*(argv+2),"r"))!=NULL && (writer=fopen(*(argv+3),"w"))!=NULL){
+				while(!feof(reader)){
+					int _char=fgetc(reader);
+					if(_char==EOF)
+						break;
+					fputc(_char,writer);
+				}
+				fclose(writer);
+				fclose(reader);}
+			else
+			{
+				printf("Error opening file!\n");
+				return -3;
+			}
 		}
 		else if(strcmp(getParam(*(argv+1)),"m")==0){	//5
 
+		}
+		else{
+			printf("Invalid paramter: '%s'.\n",*(argv+1));
+			return -5;
 		}
 		break;
 	default:
