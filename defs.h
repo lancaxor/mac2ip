@@ -5,6 +5,7 @@
  *      Author: lexis
  */
 
+#include <stdint.h>
 #ifndef DEFS_H_
 #define DEFS_H_
 

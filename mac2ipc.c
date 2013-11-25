@@ -8,12 +8,12 @@
  ============================================================================
  */
 
+
 #include <stdio.h>
 #include <stdlib.h>
 #include <ctype.h>
 #include <unistd.h>
 #include <math.h>
-#include <stdint.h>
 #include <string.h>
 #include "defs.h"
 
