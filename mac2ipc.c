@@ -21,13 +21,17 @@
 int ipoksize=0;
 int macoksize=0;
 
-int main(void) {
+int main(int argc,char**argv) {
 	char *mac=(char*)malloc(100*sizeof(char));
 	char *outip=(char*)malloc(100*sizeof(char));
 	char*unsMac;
 	char*unsIP;
 	int resNum=0;
 	mac48_t lmac=0,loutip=0;
+	if(argc>1){
+		if(strcmp(*(argv+1),"--help")==0)
+				printHelp();
+		return 0;}
 
 	puts("Enter MAC & outer IP");
 	scanf("%s %s",mac, outip);
@@ -141,17 +145,7 @@ void printHelp(){
 char*mac48toa(mac48_t mac, char type){
 	char*result;
 	char*buf=(char*)malloc(12*sizeof(char));
-	int len=0;
-	int oksize=0;
-	if(type=='m')
-		oksize=macoksize;
-	else if (type=='i')
-		oksize=ipoksize;
-	else
-		return "MTOA_BAD_TYPE";
-
-	len=(oksize==2)?17:14;
-	result=(char*)malloc(len*sizeof(char));
+	result=(char*)malloc(12*sizeof(char));
 
 	mac48_t first6=mac>>24;
 	mac48_t last6=mac&(0xFFFFFF);
