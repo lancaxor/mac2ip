@@ -15,6 +15,7 @@
 #include <unistd.h>
 #include <math.h>
 #include <string.h>
+#include <inttypes.h>
 #include "defs.h"
 
 int ipoksize=0;
@@ -53,9 +54,8 @@ int main(void) {
 
 	for(long i=0x0;i<resNum;i++){
 		long linip=loutip+i+1;
-		int holost=100500;
 		//here will be output...
-		//printf("%s\n",mac48toa(temp));
+		printf("%s\n",mac48toa(linip,'m'));
 	}
 
 	if(resNum==0)	printf ("no addresses found!\n");
@@ -114,17 +114,14 @@ char* removeSeparators(char*param,char type){
 mac48_t atohex(const char*param){					//xxxxyyyyyyyy
 	mac48_t res=0;
 	mac48_t first4=0x0L,last8=0x0L;
-	printf("input: %s\n",param);
 	char*last8bytes=(char*)malloc(8*sizeof(char));		//yyyyyyyy
 	for(int i=0;i<8;i++)
 		*(last8bytes+7-i)=*(param+11-i);
 	sscanf(last8bytes,"%8x",&last8);
-	printf("last8bytes: %s; last8: %x\n",last8bytes,last8);
 	char*first4bytes=(char*)malloc(4*sizeof(char));		//xxxx
 	for(int i=0;i<4;i++)
 		*(first4bytes+i)=*(param+i);
 	sscanf(first4bytes,"%8x",&first4);
-	printf("first4bytes: %s; first4: %x\n",first4bytes,first4);
 	first4*=0x100000000L;					//xxxx00000000
 	res=(first4+last8);					//xxxxyyyyyyyy
 
@@ -156,10 +153,10 @@ char*mac48toa(mac48_t mac, char type){
 	len=(oksize==2)?17:14;
 	result=(char*)malloc(len*sizeof(char));
 
-	/*for(int i=0;i<len;i++){
-
-	}*/
+	mac48_t first6=mac>>24;
+	mac48_t last6=mac&(0xFFFFFF);
+	sprintf(result,"%x%x",first6,last6);
 	free(buf);
-	free(result);
+	//free(result);
 	return result;
 }
